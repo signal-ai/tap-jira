@@ -18,16 +18,22 @@ This tap:
   - [`users`](https://docs.atlassian.com/jira/REST/cloud/#api/2/user-findUsers)
   - [`issues`](https://docs.atlassian.com/jira/REST/cloud/#api/2/search-search)
   - [`issue_comments`](https://docs.atlassian.com/jira/REST/cloud/#api/2/search-search)
-  - [`issue_transitions`](https://docs.atlassian.com/jira/REST/cloud/#api/2/search-search)  
+  - [`issue_transitions`](https://docs.atlassian.com/jira/REST/cloud/#api/2/search-search)
   - [`worklogs`](https://docs.atlassian.com/jira/REST/cloud/#api/2/worklog-getWorklogsForIds)
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
+
+## Fork Status
+
+This fork currently:
+
+- Merges this fix https://github.com/singer-io/tap-jira/pull/110 to incremental pagination to avoid missing records
 
 ## Quick Start
 
 1. Install
 
-    pip install tap-jira
+   pip install tap-jira
 
 2. Create the config file
 
@@ -35,16 +41,16 @@ This tap:
    (for Basic Auth):
 
    ```json
-    {
-        "start_date": "2010-01-01",
-        "username": "your-jira-username",
-        "password": "your-jira-password",
-        "base_url": "https://your-jira-domain",
-        "user_agent": "<user-agent>",
-        "request_timeout": 300,
-        "groups": "jira-administrators, site-admins, jira-software-users"
-    }
-    ```
+   {
+     "start_date": "2010-01-01",
+     "username": "your-jira-username",
+     "password": "your-jira-password",
+     "base_url": "https://your-jira-domain",
+     "user_agent": "<user-agent>",
+     "request_timeout": 300,
+     "groups": "jira-administrators, site-admins, jira-software-users"
+   }
+   ```
 
    or (for OAuth):
 
@@ -71,7 +77,7 @@ This tap:
 
    The `groups` specifies groups for users stream. It is an optional parameter. Default value is `["jira-administrators", "jira-software-users", "jira-core-users", "jira-users", "users"]`.
 
-4. Run the Tap in Discovery Mode
+3. Run the Tap in Discovery Mode
 
    ```
    tap-jira -c config.json -d
@@ -80,7 +86,7 @@ This tap:
    See the Singer docs on discovery mode
    [here](https://github.com/singer-io/getting-started/blob/master/docs/DISCOVERY_MODE.md#discovery-mode).
 
-5. Run the Tap in Sync Mode
+4. Run the Tap in Sync Mode
 
    ```
    tap-jira -c config.json -p catalog-file.json
